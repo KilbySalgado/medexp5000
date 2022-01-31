@@ -30,7 +30,35 @@ class Expedientes{
             );
         });
     }
+    
+    getAll () {
+        return new Promise( (accept, reject) => {
+            db.all('SELECT * FROM expedientes;',(err, rows) => {
+                    if(err){
+                        console.error(err);
+                        reject(err);
+                    }
+                    accept(rows);
+                }
+            );
+        });
+    }
 
+    getById (id) {
+        return new Promise( (accept, reject) => {
+            db.run('SELECT * FROM expedientes WHERE id=?;',
+            [id],
+            (err, row) => {
+                    if(err){
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        accept(row);
+                    }
+                }
+            );
+        });
+    }
 }
 
 module.exports = Expedientes;
