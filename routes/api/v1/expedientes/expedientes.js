@@ -53,4 +53,24 @@ router.post('/new', async (req, res) => {
     }
   });
 
+  router.put('/update/:id', async (req, res) => {
+    try {
+    const { identidad, fecha, descripcion, observaciones, registros, ultimoActualizacion } = req.body;
+    const { id } = req.params;
+    const result = await expedienteModel.updateOne(id,identidad, fecha, descripcion, observaciones, registros, ultimoActualizacion);
+      res.status(200).json(
+        {
+          status: 'ok',
+          result
+        });
+    } catch (ex) {
+      console.log(ex);
+      res.status(500).json(
+        {
+          status: 'failed',
+          result: {}
+        });
+    }
+  }); //put / Update Expedientes
+
 module.exports = router;

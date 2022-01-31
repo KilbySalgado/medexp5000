@@ -59,6 +59,23 @@ class Expedientes{
             );
         });
     }
+
+    updateOne ( id,identidad, fecha, descripcion, observaciones, registros, ultimoActualizacion){
+        return new Promise( (accept, reject) => {
+            const sqlUpdate = 'UPDATE expedientes SET identidad = ?, fecha = ?, descripcion = ?, observaciones = ?, registros = ?, ultimoActualizacion = ? WHERE id = ?'
+            db.run(
+                sqlUpdate,
+                [identidad, fecha, descripcion, observaciones, registros, ultimoActualizacion, id],
+                function (err) {
+                    if(err){
+                        reject(err);
+                    } else {
+                        accept(this);
+                    }
+                }
+            );
+        });
+    }
 }
 
 module.exports = Expedientes;
