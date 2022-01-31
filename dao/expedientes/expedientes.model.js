@@ -76,6 +76,23 @@ class Expedientes{
             );
         });
     }
+
+    deleteOne(id) {
+        return new Promise( (accept, reject) => {
+            const sqlDelete = 'DELETE FROM expedientes WHERE id = ?'
+            db.run( 
+            sqlDelete,
+            [id],
+            function (err) {
+                    if(err){
+                        reject(err);
+                    } else {
+                        accept(this);
+                    }
+                }
+            );
+        });
+    }
 }
 
 module.exports = Expedientes;

@@ -41,6 +41,7 @@ router.post('/new', async (req, res) => {
       res.status(500).json({status:'failed'});
     }
   } );
+
   // /byid/1;
   router.get('/byid/:id', async (req, res) => {
     try {
@@ -53,6 +54,7 @@ router.post('/new', async (req, res) => {
     }
   });
 
+//update expedientes
   router.put('/update/:id', async (req, res) => {
     try {
     const { identidad, fecha, descripcion, observaciones, registros, ultimoActualizacion } = req.body;
@@ -72,5 +74,17 @@ router.post('/new', async (req, res) => {
         });
     }
   }); //put / Update Expedientes
+  
+  // Delete expedientes
+  router.delete('/delete/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await expedienteModel.deleteOne(id);
+      res.status(200).json({ status: 'ok', result });
+    } catch (ex) {
+      console.log(ex);
+      res.status(500).json({ status: 'failed' });
+    }
+  });
 
 module.exports = router;
